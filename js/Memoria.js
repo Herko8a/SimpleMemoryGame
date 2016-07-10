@@ -204,22 +204,27 @@ function Cartas(){
 		},
 		seleccionDeCarta: function(Pos){
 
-			for(i in this.cartas) {
-				var carta = this.cartas[i];
+			if (this.CartasSeleccionadas < 2)
+			{
+				for(i in this.cartas) {
+					var carta = this.cartas[i];
 
-				if ((carta.x <= Pos.x && ((carta.x + carta.ancho) >= Pos.x)) &&
-					(carta.y <= Pos.y && ((carta.y + carta.alto) >= Pos.y)))
-				{
-					carta.seleccionada = 'Si';
-					this.CartasSeleccionadas += 1;
-					if (this.CartasSeleccionadas == 2)
+					if ((carta.x <= Pos.x && ((carta.x + carta.ancho) >= Pos.x)) &&
+						(carta.y <= Pos.y && ((carta.y + carta.alto) >= Pos.y)))
 					{
-						setTimeout(this.evaluarCartasSeleccionadas, 500);
-						this.CartasSeleccionadas = 0;
+						if(carta.seleccionada == 'No')
+						{
+							carta.seleccionada = 'Si';
+							this.CartasSeleccionadas += 1;
+							if (this.CartasSeleccionadas == 2)
+							{
+								setTimeout(this.evaluarCartasSeleccionadas, 1000);
+							}
+						}
 					}
-				}
 
-			};
+				}
+			}
 		},
 		evaluarCartasSeleccionadas: function(){
 
@@ -241,6 +246,8 @@ function Cartas(){
 				carSel[0].seleccionada = 'No'; 
 				carSel[1].seleccionada = 'No';
 			}
+
+			cartas.CartasSeleccionadas = 0;
 
 		}
 	}
